@@ -25,13 +25,13 @@ npm install --save stylobuild
 Just `use` the stylobuild in your `.styl` stylesheet like this:
 
 ``` sass
-use('node_modules/stylobuild/index.js')
+use('node_modules/stylobuild')
 ```
 
 Then add any styles:
 
 ``` sass
-use('node_modules/stylobuild/index.js')
+use('node_modules/stylobuild')
 
 body
   padding: 0.5rem 1rem
@@ -43,6 +43,15 @@ And they would have `rem` fallbacks, all the prefixes and the code would be nice
 
 ``` css
 body{padding: .50px 10px;padding:.5rem 1rem;-webkit-box-shadow:3px 3px 5px #ccc;box-shadow:3px 3px 5px #ccc;-webkit-transform:scale(2);-ms-transform:scale(2);transform:scale(2)}
+```
+
+You can also use stylobuild as js-plugin:
+
+``` js
+var stylus = require('stylus');
+var stylobuild = require('stylobuild');
+
+stylus(css).use(stylobuild());
 ```
 
 - - -
