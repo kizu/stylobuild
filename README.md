@@ -24,13 +24,13 @@ npm install --save stylobuild
 
 Just `use` the stylobuild in your `.styl` stylesheet like this:
 
-```
+``` sass
 use('node_modules/stylobuild/lib/stylobuild.js')
 ```
 
 Then add any styles:
 
-```
+``` sass
 use('node_modules/stylobuild/lib/stylobuild.js')
 
 body
@@ -41,7 +41,7 @@ body
 
 And they would have `rem` fallbacks, all the prefixes and the code would be nicely minified:
 
-```
+``` css
 body{padding: .50px 10px;padding:.5rem 1rem;-webkit-box-shadow:3px 3px 5px #ccc;box-shadow:3px 3px 5px #ccc;-webkit-transform:scale(2);-ms-transform:scale(2);transform:scale(2)}
 ```
 
