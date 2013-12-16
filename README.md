@@ -25,13 +25,13 @@ npm install --save stylobuild
 Just `use` the stylobuild in your `.styl` stylesheet like this:
 
 ``` sass
-use('node_modules/stylobuild/lib/stylobuild.js')
+use('node_modules/stylobuild/index.js')
 ```
 
 Then add any styles:
 
 ``` sass
-use('node_modules/stylobuild/lib/stylobuild.js')
+use('node_modules/stylobuild/index.js')
 
 body
   padding: 0.5rem 1rem

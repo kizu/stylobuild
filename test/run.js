@@ -2,8 +2,9 @@
  * Module dependencies.
  */
 
-var stylus = require('stylus')
-  , fs = require('fs');
+var stylus = require('stylus');
+var fs = require('fs');
+var stylobuild = require('../index');
 
 // test cases
 
@@ -23,6 +24,10 @@ cases.forEach(function(test){
     var style = stylus(styl)
       .set('filename', path)
       .define('url', stylus.url());
+
+    if (path.match(/\/js-/)) {
+      style.use(stylobuild());
+    }
 
     style.render(function(err, actual){
       if (err) throw err;
