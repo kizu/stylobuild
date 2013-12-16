@@ -1,6 +1,6 @@
 # Stylobuild [![Build Status][build]][build-link] [![NPM version][version]][version-link]
-[build]: https://travis-ci.org/stylobate/stylobuild.png?branch=master
-[build-link]: https://travis-ci.org/stylobate/stylobuild
+[build]: https://travis-ci.org/kizu/stylobuild.png?branch=master
+[build-link]: https://travis-ci.org/kizu/stylobuild
 [version]: https://badge.fury.io/js/stylobuild.png
 [version-link]: http://badge.fury.io/js/stylobuild
 

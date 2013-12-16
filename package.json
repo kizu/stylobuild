@@ -1,6 +1,6 @@
 {
   "name": "stylobuild",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Roman Komarov <kizmarh@ya.ru> (http://kizu.ru/en/)",
   "licence": "MIT",
   "description": "Workflow for building Stylus with CSSO, Autoprefixer and other stuff",
@@ -8,18 +8,18 @@
     "stylus",
     "mixins"
   ],
-  "homepage": "https://github.com/stylobate/stylobuild#readme",
+  "homepage": "https://github.com/kizu/stylobuild#readme",
   "bugs": {
-    "url": "http://github.com/stylobate/stylobuild/issues"
+    "url": "http://github.com/kizu/stylobuild/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/stylobate/stylobuild.git"
+    "url": "git://github.com/kizu/stylobuild.git"
   },
   "dependencies": {
     "autoprefixer": "0.8.x",
     "csso": "1.3.x",
-    "pixrem": "0.1.x"
+    "pixrem": "git://github.com/kizu/node-pixrem#patch-1"
   },
   "devDependencies": {
     "stylus": "0.41.x",
