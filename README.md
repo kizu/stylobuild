@@ -12,7 +12,7 @@
 
 3. [CSSO](https://github.com/css/csso) for CSS minification.
 
-This is only the start: in future some other tools would 
+This is only the start: in future some other tools would be added to this list.
 
 ## Installation
 
