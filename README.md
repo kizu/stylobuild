@@ -127,7 +127,8 @@ use('node_modules/stylobuild', {
     rootvalue: 16px
     replace: true
   }
-})```
+})
+```
 
 - - -
 
