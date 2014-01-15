@@ -117,7 +117,7 @@ use('node_modules/stylobuild', {
 
 The `restructure-off` option would turn off the structure minification.
 
-### Configuring [Pixrem]()
+### Configuring [Pixrem][]
 
 To configure Pixrem you need to use only one options object, while [in its raw form](https://github.com/robwierzbowski/node-pixrem#rootvalue) you need to use both an argument and an object.
 
