@@ -26,7 +26,9 @@ cases.forEach(function(test){
       .define('url', stylus.url());
 
     if (path.match(/\/js-/)) {
-      style.use(stylobuild());
+      style.use(stylobuild({
+        // asdsd
+      }));
     }
 
     style.render(function(err, actual){

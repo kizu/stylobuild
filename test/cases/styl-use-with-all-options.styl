@@ -1,0 +1,21 @@
+use('../../', {
+  ie: false
+  autoprefixer: {
+    browsers: "last 1 version, > 1%, Explorer 7"
+  }
+  csso: {
+    restructure-off: true
+  }
+  pixrem: {
+    rootvalue: 16px
+    replace: true
+  }
+})
+
+body
+  padding: 0.5rem 1rem
+  box-shadow: 3px 3px 5px #ccc
+  transform: scale(2)
+
+.test
+  padding: 0.5rem 1rem
