@@ -14,7 +14,7 @@ module.exports = function(options) {
             }
 
             // Using the autoprefixer
-            if (options.ie !== true) {
+            if (options.ie !== true && options.autoprefixer !== false) {
                 var autoprefixer_browsers = (options.autoprefixer && options.autoprefixer.browsers) || [];
                 var autoprefixer_options = options.autoprefixer || {};
                 if (autoprefixer_browsers.length) {
@@ -24,16 +24,20 @@ module.exports = function(options) {
             }
 
             // Using the CSSO
-            var csso_restructure_off = (options.csso && options.csso['restructure-off']) || false
-            result = csso.justDoIt(result, csso_restructure_off);
+            if (options.csso !== false) {
+                var csso_restructure_off = (options.csso && options.csso['restructure-off']) || false
+                result = csso.justDoIt(result, csso_restructure_off);
+            }
 
             // Using the pixrem
-            var pixrem_rootvalue = (options.pixrem && options.pixrem.rootvalue) || '10px';
-            var pixrem_options = options.pixrem || {};
-            if (options.ie === true && pixrem_options.replace === undefined) {
-                pixrem_options.replace = true;
+            if (options.pixrem !== false) {
+                var pixrem_rootvalue = (options.pixrem && options.pixrem.rootvalue) || '10px';
+                var pixrem_options = options.pixrem || {};
+                if (options.ie === true && pixrem_options.replace === undefined) {
+                    pixrem_options.replace = true;
+                }
+                result = pixrem(result, pixrem_rootvalue, pixrem_options);
             }
-            result = pixrem(result, pixrem_rootvalue, pixrem_options);
 
             return result;
         });

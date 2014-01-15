@@ -130,6 +130,18 @@ use('node_modules/stylobuild', {
 })
 ```
 
+### Disabling plugins
+
+You can disable any of the used plugins using `false` instead of an options object for this plugin:
+
+``` sass
+use('node_modules/stylobuild', {
+  csso: false
+})
+```
+
+This would do all the things except minifying the code using CSSO.
+
 - - -
 
 This is a small work-in-progress project, as its version is in `0.x.x` semver, it could update with API-breaking changes, so it is better to use its strict versions.
