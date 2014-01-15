@@ -24,7 +24,8 @@ module.exports = function(options) {
             }
 
             // Using the CSSO
-            result = csso.justDoIt(result);
+            var csso_restructure_off = (options.csso && options.csso['restructure-off']) || false
+            result = csso.justDoIt(result, csso_restructure_off);
 
             // Using the pixrem
             var pixrem_rootvalue = (options.pixrem && options.pixrem.rootvalue) || '10px';
