@@ -14,12 +14,14 @@ module.exports = function(options) {
             }
 
             // Using the autoprefixer
-            var autoprefixer_browsers = (options.autoprefixer && options.autoprefixer.browsers) || [];
-            var autoprefixer_options = options.autoprefixer || {};
-            if (autoprefixer_browsers.length) {
-                autoprefixer_browsers = autoprefixer_browsers.split(/,\s*/);
+            if (options.ie !== true) {
+                var autoprefixer_browsers = (options.autoprefixer && options.autoprefixer.browsers) || [];
+                var autoprefixer_options = options.autoprefixer || {};
+                if (autoprefixer_browsers.length) {
+                    autoprefixer_browsers = autoprefixer_browsers.split(/,\s*/);
+                }
+                result = autoprefixer.apply(true, autoprefixer_browsers).process(result, autoprefixer_options).css;
             }
-            result = autoprefixer.apply(true, autoprefixer_browsers).process(result, autoprefixer_options).css;
 
             // Using the CSSO
             result = csso.justDoIt(result);
@@ -27,7 +29,11 @@ module.exports = function(options) {
             // Using the pixrem
             var pixrem_rootvalue = (options.pixrem && options.pixrem.rootvalue) || '10px';
             var pixrem_options = options.pixrem || {};
+            if (options.ie === true && pixrem_options.replace === undefined) {
+                pixrem_options.replace = true;
+            }
             result = pixrem(result, pixrem_rootvalue, pixrem_options);
+
             return result;
         });
     };
