@@ -18,7 +18,7 @@
     "url": "git://github.com/kizu/stylobuild.git"
   },
   "dependencies": {
-    "autoprefixer": "1.0.x",
+    "autoprefixer": "1.2.x",
     "csso": "1.3.x",
     "pixrem": "0.1.x"
   },
