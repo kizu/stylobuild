@@ -16,10 +16,15 @@ module.exports = function(options) {
             // Using the autoprefixer
             if (options.ie !== true && options.autoprefixer !== false) {
                 var autoprefixer_browsers = (options.autoprefixer && options.autoprefixer.browsers) || [];
+                var autoprefixer_preoptions = {};
                 var autoprefixer_options = options.autoprefixer || {};
                 if (autoprefixer_browsers.length) {
                     autoprefixer_browsers = autoprefixer_browsers.split(/,\s*/);
                 }
+                if (options.autoprefixer && options.autoprefixer.cascade) {
+                    autoprefixer_preoptions['cascade'] = true;
+                }
+                autoprefixer_browsers.push(autoprefixer_preoptions);
                 result = autoprefixer.apply(true, autoprefixer_browsers).process(result, autoprefixer_options).css;
             }
 

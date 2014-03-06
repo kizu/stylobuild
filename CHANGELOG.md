@@ -2,6 +2,10 @@
 # Stylobuild Changelog
 ---
 
+## v0.4.2 (2014-03-06)
+
+- Updated autoprefixer.
+
 ## v0.4.1 (2014-01-15)
 
 - Added ability to disable any plugin.
