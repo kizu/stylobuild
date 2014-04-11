@@ -2,6 +2,10 @@
 # Stylobuild Changelog
 ---
 
+## v0.4.3 (2014-04-11)
+
+- Updated Stylus.
+
 ## v0.4.2 (2014-03-06)
 
 - Updated autoprefixer.
