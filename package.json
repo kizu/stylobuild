@@ -23,7 +23,7 @@
     "pixrem": "0.1.x"
   },
   "devDependencies": {
-    "stylus": "0.43.x",
+    "stylus": "0.44.x",
     "glob": "3.2.x",
     "mocha": "*",
     "should": "*"
