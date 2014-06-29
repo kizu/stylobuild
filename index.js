@@ -23,6 +23,8 @@ module.exports = function(options) {
                 }
                 if (options.autoprefixer && options.autoprefixer.cascade) {
                     autoprefixer_preoptions['cascade'] = true;
+                } else {
+                    autoprefixer_preoptions['cascade'] = false;
                 }
                 autoprefixer_browsers.push(autoprefixer_preoptions);
                 result = autoprefixer.apply(true, autoprefixer_browsers).process(result, autoprefixer_options).css;
