@@ -1,6 +1,6 @@
 {
   "name": "stylobuild",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Roman Komarov <kizmarh@ya.ru> (http://kizu.ru/en/)",
   "licence": "MIT",
   "description": "Workflow for building Stylus with CSSO, Autoprefixer and other stuff",
@@ -23,10 +23,10 @@
     "pixrem": "0.1.x"
   },
   "devDependencies": {
-    "stylus": "0.46.x",
+    "stylus": "0.47.x",
     "glob": "3.2.x",
     "mocha": "*",
-    "should": "*"
+    "should": "2.0.x"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha --require should --reporter list"
