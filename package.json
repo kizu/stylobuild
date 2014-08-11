@@ -23,7 +23,7 @@
     "pixrem": "0.1.x"
   },
   "devDependencies": {
-    "stylus": "0.47.x",
+    "stylus": "git://github.com/LearnBoost/stylus.git#feature-source-maps",
     "glob": "3.2.x",
     "mocha": "*",
     "should": "2.0.x"

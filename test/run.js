@@ -20,9 +20,17 @@ cases.forEach(function(test){
     var path = 'test/cases/' + test + '.styl';
     var styl = fs.readFileSync(path, 'utf8').replace(/\r/g, '');
     var css = fs.readFileSync('test/cases/' + test + '.css', 'utf8').replace(/\r/g, '').trim();
+    var sourcemap = false;
+
+    if (path.match(/\/map-/)) {
+      sourcemap = {
+        inline: true
+      };
+    }
 
     var style = stylus(styl)
       .set('filename', path)
+      .set('sourcemap', sourcemap)
       .define('url', stylus.url());
 
     if (path.match(/\/js-/)) {

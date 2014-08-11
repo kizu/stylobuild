@@ -89,6 +89,10 @@ When you pass `ie: true` option to stylobuild, it wouldn't apply autoprefixer an
 
 In future there would be an option to create styles for IE automatically, using [if-ie.styl](https://github.com/kizu/if-ie.styl)
 
+### Source maps
+
+If you're using sourcemaps in Stylus, the plugins that do not support them would be disabled. Right now CSSO and pixrem would be disabled (CSSO do not support sourcemaps, pixrem do not support configuring them, so they're unusable).
+
 ### Configuring [Autoprefixer][]
 
 To configure autoprefixer, you would need to pass an object to `autoprefixer` key:
