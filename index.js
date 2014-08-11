@@ -7,6 +7,13 @@ module.exports = function(options) {
         this.on('end', function(err, css) {
             var result = css;
             var sourcemap = style.sourcemap;
+            var sourcemap_from;
+            var sourcemap_to;
+            if (sourcemap) {
+                sourcemap_from = style.options.filename.match(/^(?:.*\/)?([^\/]+)$/)[1];
+                sourcemap_to = sourcemap.file.match(/^(?:.*\/)?([^\/]+)$/)[1];
+            }
+
             options = options || {};
 
             // Do not use the fallback options
@@ -26,10 +33,10 @@ module.exports = function(options) {
                 // Apply proper from/to urls
                 if (sourcemap) {
                     if (!autoprefixer_options.from) {
-                        autoprefixer_options['from'] = style.options.filename.match(/^(?:.*\/)?([^\/]+)$/)[1];
+                        autoprefixer_options['from'] = sourcemap_from;
                     }
                     if (!autoprefixer_options.to) {
-                        autoprefixer_options['to'] = sourcemap.file.match(/^(?:.*\/)?([^\/]+)$/)[1];
+                        autoprefixer_options['to'] = sourcemap_to;
                     }
                 }
 
@@ -49,13 +56,22 @@ module.exports = function(options) {
             }
 
             // Using the pixrem
-            if (!sourcemap && options.pixrem !== false) {
+            if (options.pixrem !== false) {
                 var pixrem_rootvalue = (options.pixrem && options.pixrem.rootvalue) || '10px';
                 var pixrem_options = options.pixrem || {};
                 if (options.ie === true && pixrem_options.replace === undefined) {
                     pixrem_options.replace = true;
                 }
-                result = pixrem(result, pixrem_rootvalue, pixrem_options);
+                pixrem_postcss_options = pixrem_options.postcss || {};
+                if (sourcemap) {
+                    if (!pixrem_options.from) {
+                        pixrem_postcss_options['from'] = sourcemap_from;
+                    }
+                    if (!pixrem_options.to) {
+                        pixrem_postcss_options['to'] = sourcemap_to;
+                    }
+                }
+                result = pixrem.process(result, pixrem_rootvalue, pixrem_options, pixrem_postcss_options);
             }
 
             return result;

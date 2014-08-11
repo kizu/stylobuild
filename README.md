@@ -91,7 +91,7 @@ In future there would be an option to create styles for IE automatically, using 
 
 ### Source maps
 
-If you're using sourcemaps in Stylus, the plugins that do not support them would be disabled. Right now CSSO and pixrem would be disabled (CSSO do not support sourcemaps, pixrem do not support configuring them, so they're unusable).
+If you're using sourcemaps in Stylus, the plugins that do not support them (CSSO) would be disabled.
 
 ### Configuring [Autoprefixer][]
 
