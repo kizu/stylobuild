@@ -1,7 +1,6 @@
 body {
   padding: 0.5rem 1rem;
-  -webkit-box-shadow: 3px 3px 5px #ccc;
-          box-shadow: 3px 3px 5px #ccc;
+  box-shadow: 3px 3px 5px #ccc;
   -webkit-transform: scale(2);
       -ms-transform: scale(2);
           transform: scale(2);
