@@ -2,6 +2,10 @@
 # Stylobuild Changelog
 ---
 
+## v0.6.0 (in development)
+
+- Added basic sourcemaps support.
+
 ## v0.5.0 (2014-06-29)
 
 - Updated autoprefixer to 2.0.
