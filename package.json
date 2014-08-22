@@ -23,7 +23,7 @@
     "pixrem": "git://github.com/kizu/node-pixrem.git#postcss-options"
   },
   "devDependencies": {
-    "stylus": "git://github.com/LearnBoost/stylus.git#feature-source-maps",
+    "stylus": "0.48.1",
     "glob": "3.2.x",
     "mocha": "*",
     "should": "2.0.x"
