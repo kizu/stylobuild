@@ -12,6 +12,8 @@
 
 3. [CSSO][] for CSS minification.
 
+3. [CSSWring][] for CSS fallback minification (when sourcemaps are on, as CSSO have no support for them).
+
 This is only the start: in future some other tools would be added to this list.
 
 ## Installation
@@ -156,3 +158,5 @@ This is a small work-in-progress project, as its version is in `0.x.x` semver, i
 [Pixrem]: https://github.com/robwierzbowski/node-pixrem
 
 [CSSO]: https://github.com/css/csso
+
+[CSSWring]: https://github.com/hail2u/node-csswring
