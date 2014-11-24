@@ -6,6 +6,7 @@
 
 - Added sourcemaps support.
 - Added CSSWring as a minifier fallback.
+- Updated autoprefixer to 4.0.
 
 ## v0.5.0 (2014-06-29)
 

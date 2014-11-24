@@ -27,8 +27,10 @@ var stylobuild_autoprefixer = function(stylobuild) {
         } else {
             autoprefixer_preoptions['cascade'] = false;
         }
-        autoprefixer_browsers.push(autoprefixer_preoptions);
-        stylobuild.css = autoprefixer.apply(true, autoprefixer_browsers).process(stylobuild.css, autoprefixer_options).css;
+        if (autoprefixer_browsers.length) {
+            autoprefixer_preoptions['browsers'] = autoprefixer_browsers;
+        }
+        stylobuild.css = autoprefixer(autoprefixer_preoptions).process(stylobuild.css, autoprefixer_options).css;
     }
 }
 
