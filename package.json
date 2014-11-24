@@ -19,12 +19,13 @@
   },
   "dependencies": {
     "autoprefixer": "~4.0.0",
+    "clean-css": "~2.2.19",
     "csswring": "~1.3.1",
     "csso": "1.3.x",
     "pixrem": "git://github.com/kizu/node-pixrem.git#postcss-options"
   },
   "devDependencies": {
-    "stylus": "0.48.0",
+    "stylus": "0.49.3",
     "glob": "3.2.x",
     "mocha": "*",
     "should": "2.0.x"

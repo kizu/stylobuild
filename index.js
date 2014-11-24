@@ -1,5 +1,6 @@
 var autoprefixer = require('autoprefixer');
 var csso = require('csso');
+var cleancss = require('clean-css');
 var csswring = require('csswring');
 var pixrem = require('pixrem');
 
@@ -35,14 +36,21 @@ var stylobuild_autoprefixer = function(stylobuild) {
 }
 
 var stylobuild_csso = function(stylobuild) {
-    if (!stylobuild.sourcemap && stylobuild.options.csso !== false) {
+    if (!stylobuild.sourcemap && stylobuild.options.csso !== false && stylobuild.options.minifier === 'csso') {
         var csso_restructure_off = (stylobuild.options.csso && stylobuild.options.csso['restructure-off']) || false
         stylobuild.css = csso.justDoIt(stylobuild.css, csso_restructure_off);
     }
 }
 
+var stylobuild_cleancss = function(stylobuild) {
+    if (!stylobuild.sourcemap && stylobuild.options.cleancss !== false && stylobuild.options.minifier === 'cleancss') {
+        var cleancss_options = stylobuild.options.cleancss || {};
+        stylobuild.css = new cleancss(cleancss_options).minify(stylobuild.css);
+    }
+}
+
 var stylobuild_csswring = function(stylobuild) {
-    if (stylobuild.options.csswring !== false) {
+    if (stylobuild.options.csswring !== false && stylobuild.options.minifier === 'csswring') {
         var csswring_options = stylobuild.options.csswring || {};
         csswring_postcss_options = csswring_options.postcss || {};
         if (stylobuild.sourcemap) {
@@ -78,14 +86,6 @@ var stylobuild_pixrem = function(stylobuild) {
     }
 }
 
-apply_minifier = function(stylobuild) {
-    if (stylobuild.sourcemap) {
-        stylobuild_csswring(stylobuild);
-    } else {
-        stylobuild_csso(stylobuild);
-    }
-}
-
 module.exports = function(options) {
     return function(style) {
         this.on('end', function(err, css) {
@@ -109,8 +109,20 @@ module.exports = function(options) {
                 stylobuild.options = {};
             }
 
+            // CSSO as a default minifier
+            if (!stylobuild.options.minifier) {
+                stylobuild.options['minifier'] = stylobuild.sourcemap ? 'csswring' : 'csso';
+            }
+
+            // Applying postprocessors
             stylobuild_autoprefixer(stylobuild);
-            apply_minifier(stylobuild);
+
+            // Applying minifiers
+            stylobuild_csswring(stylobuild);
+            stylobuild_csso(stylobuild);
+            stylobuild_cleancss(stylobuild);
+
+            // Applying postprocessors that should be applied after minifiers
             stylobuild_pixrem(stylobuild);
 
             return stylobuild.css;

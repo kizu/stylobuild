@@ -10,9 +10,7 @@
 
 2. [Pixrem][] for the `rem` fallback.
 
-3. [CSSO][] for CSS minification.
-
-3. [CSSWring][] for CSS fallback minification (when sourcemaps are on, as CSSO have no support for them).
+3. [CSSO][], [CSSWring][] or [clean-css][] for CSS minification.
 
 This is only the start: in future some other tools would be added to this list.
 
@@ -93,7 +91,19 @@ In future there would be an option to create styles for IE automatically, using 
 
 ### Source maps
 
-If you're using sourcemaps in Stylus, the plugins that do not support them (CSSO) would be disabled.
+If you're using sourcemaps in Stylus, the plugins that do not support them (CSSO, clean-css) would be disabled.
+
+### Choosing the minifier
+
+By default Stylobuild uses CSSO as a minifier, but if you would enable source maps, then CSSWring would become the default one.
+
+However, you can choose the minifier manually by setting the `minifier` option to one of the available ones: `csso`, `csswring`, `cleancss`:
+
+``` sass
+use('node_modules/stylobuild', {
+  minifier: 'cleancss'
+})
+```
 
 ### Configuring [Autoprefixer][]
 
@@ -136,6 +146,19 @@ use('node_modules/stylobuild', {
 })
 ```
 
+### Configuring [clean-css][]
+
+You can configure clean-css by passing a hash with the [list of options](https://github.com/jakubpawlowicz/clean-css/tree/v2.2.19#how-to-use-clean-css-programmatically) to the `cleancss`:
+
+``` sass
+use('node_modules/stylobuild', {
+  minifier: 'cleancss'
+  cleancss: {
+    noAdvanced: true
+  }
+})
+```
+
 ### Disabling plugins
 
 You can disable any of the used plugins using `false` instead of an options object for this plugin:
@@ -160,3 +183,5 @@ This is a small work-in-progress project, as its version is in `0.x.x` semver, i
 [CSSO]: https://github.com/css/csso
 
 [CSSWring]: https://github.com/hail2u/node-csswring
+
+[clean-css]: https://github.com/jakubpawlowicz/clean-css

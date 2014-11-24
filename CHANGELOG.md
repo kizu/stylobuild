@@ -5,7 +5,8 @@
 ## v0.6.0 (in development)
 
 - Added sourcemaps support.
-- Added CSSWring as a minifier fallback.
+- Added CSSWring and clean-css as alternative minifiers.
+- Added `minifier` option for setting the default minifier.
 - Updated autoprefixer to 4.0.
 
 ## v0.5.0 (2014-06-29)
