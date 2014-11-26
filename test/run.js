@@ -24,7 +24,7 @@ cases.forEach(function(test){
 
     if (path.match(/\/map-/)) {
       sourcemap = {
-        inline: true
+        inline: (path.match(/\/map-inline/) ? true : false)
       };
     }
 
