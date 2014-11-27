@@ -15,6 +15,11 @@ var stylobuild_autoprefixer = function(stylobuild) {
 
         // Apply proper from/to urls
         if (stylobuild.sourcemap) {
+            // Won't work for some reason.
+            // PostCSS shouldn't look at the map file if the prev object exists.
+            if (!autoprefixer_options.prev) {
+                autoprefixer_options['prev'] = stylobuild.sourcemap.map;
+            }
             if (!autoprefixer_options.from) {
                 autoprefixer_options['from'] = stylobuild.sourcemap.from;
             }
@@ -31,7 +36,11 @@ var stylobuild_autoprefixer = function(stylobuild) {
         if (autoprefixer_browsers.length) {
             autoprefixer_preoptions['browsers'] = autoprefixer_browsers;
         }
-        stylobuild.css = autoprefixer(autoprefixer_preoptions).process(stylobuild.css, autoprefixer_options).css;
+        result = autoprefixer(autoprefixer_preoptions).process(stylobuild.css, autoprefixer_options);
+        if (result.map) {
+            stylobuild.sourcemap.map = result.map;
+        }
+        stylobuild.css = result.css;
     }
 }
 
@@ -62,7 +71,11 @@ var stylobuild_csswring = function(stylobuild) {
                 csswring_postcss_options['to'] = stylobuild.sourcemap.to;
             }
         }
-        stylobuild.css = csswring.wring(stylobuild.css, csswring_postcss_options).css;
+        result = csswring.wring(stylobuild.css, csswring_postcss_options);
+        if (result.map) {
+            stylobuild.sourcemap.map = result.map;
+        }
+        stylobuild.css = result.css;
     }
 }
 
@@ -82,7 +95,11 @@ var stylobuild_pixrem = function(stylobuild) {
                 pixrem_postcss_options['to'] = stylobuild.sourcemap.to;
             }
         }
-        stylobuild.css = pixrem.process(stylobuild.css, pixrem_rootvalue, pixrem_options, pixrem_postcss_options);
+        result = pixrem.process(stylobuild.css, pixrem_rootvalue, pixrem_options, pixrem_postcss_options);
+        if (result.map) {
+            stylobuild.sourcemap.map = result.map;
+        }
+        stylobuild.css = result.css;
     }
 }
 
@@ -125,6 +142,7 @@ module.exports = function(options) {
             // Applying postprocessors that should be applied after minifiers
             stylobuild_pixrem(stylobuild);
 
+            style.sourcemap = stylobuild.sourcemap.map;
             return stylobuild.css;
         });
     };
