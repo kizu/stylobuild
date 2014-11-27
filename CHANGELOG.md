@@ -2,12 +2,12 @@
 # Stylobuild Changelog
 ---
 
-## v0.6.0 (in development)
+## v0.6.0 (2014-11-27)
 
-- Added sourcemaps support.
+- Added inline sourcemaps support.
 - Added CSSWring and clean-css as alternative minifiers.
 - Added `minifier` option for setting the default minifier.
-- Updated autoprefixer to 4.0.
+- Updated deps.
 
 ## v0.5.0 (2014-06-29)
 
