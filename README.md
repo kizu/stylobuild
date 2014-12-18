@@ -107,6 +107,26 @@ use('node_modules/stylobuild', {
 })
 ```
 
+You can disable minifier by adding `minifier: false` to the options.
+
+Also, note that you can omit setting the `minifier` setting if you're setting the options for this minifier:
+
+``` sass
+use('node_modules/stylobuild', {
+  cleancss: {
+    noAdvanced: true
+  }
+})
+```
+
+would apply the clean-css with the given options. Alternatively, you can just set the name of the minifier to `true` to just enable it:
+
+``` sass
+use('node_modules/stylobuild', {
+  cleancss: true
+})
+```
+
 ### Configuring [Autoprefixer][]
 
 To configure autoprefixer, you would need to pass an object to `autoprefixer` key:

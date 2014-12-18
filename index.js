@@ -8,7 +8,7 @@ var stylobuild_autoprefixer = function(stylobuild) {
     if (stylobuild.options.ie !== true && stylobuild.options.autoprefixer !== false) {
         var autoprefixer_browsers = (stylobuild.options.autoprefixer && stylobuild.options.autoprefixer.browsers) || [];
         var autoprefixer_preoptions = {};
-        var autoprefixer_options = stylobuild.options.autoprefixer || {};
+        var autoprefixer_options = stylobuild.options.autoprefixer !== true && stylobuild.options.autoprefixer || {};
         if (autoprefixer_browsers.length) {
             autoprefixer_browsers = autoprefixer_browsers.split(/,\s*/);
         }
@@ -35,6 +35,18 @@ var stylobuild_autoprefixer = function(stylobuild) {
     }
 }
 
+var stylobuild_get_default_minifier = function(stylobuild) {
+    if (!stylobuild.options.minifier && stylobuild.options.minifier !== false) {
+        if (stylobuild.sourcemap || stylobuild.options.csswring) {
+            stylobuild.options['minifier'] = 'csswring';
+        } else if (stylobuild.options.cleancss) {
+            stylobuild.options['minifier'] = 'cleancss';
+        } else {
+            stylobuild.options['minifier'] = 'csso';
+        }
+    }
+}
+
 var stylobuild_csso = function(stylobuild) {
     if (!stylobuild.sourcemap && stylobuild.options.csso !== false && stylobuild.options.minifier === 'csso') {
         var csso_restructure_off = (stylobuild.options.csso && stylobuild.options.csso['restructure-off']) || false
@@ -44,14 +56,14 @@ var stylobuild_csso = function(stylobuild) {
 
 var stylobuild_cleancss = function(stylobuild) {
     if (!stylobuild.sourcemap && stylobuild.options.cleancss !== false && stylobuild.options.minifier === 'cleancss') {
-        var cleancss_options = stylobuild.options.cleancss || {};
+        var cleancss_options = stylobuild.options.cleancss !== true && stylobuild.options.cleancss || {};
         stylobuild.css = new cleancss(cleancss_options).minify(stylobuild.css);
     }
 }
 
 var stylobuild_csswring = function(stylobuild) {
     if (stylobuild.options.csswring !== false && stylobuild.options.minifier === 'csswring') {
-        var csswring_options = stylobuild.options.csswring || {};
+        var csswring_options = stylobuild.options.csswring !== true && stylobuild.options.csswring || {};
         csswring_postcss_options = csswring_options.postcss || {};
         if (stylobuild.sourcemap) {
             csswring_postcss_options['map'] = true;
@@ -69,7 +81,7 @@ var stylobuild_csswring = function(stylobuild) {
 var stylobuild_pixrem = function(stylobuild) {
     if (stylobuild.options.pixrem !== false) {
         var pixrem_rootvalue = (stylobuild.options.pixrem && stylobuild.options.pixrem.rootvalue) || '10px';
-        var pixrem_options = stylobuild.options.pixrem || {};
+        var pixrem_options = stylobuild.options.pixrem !== true && stylobuild.options.pixrem || {};
         if (stylobuild.options.ie === true && pixrem_options.replace === undefined) {
             pixrem_options.replace = true;
         }
@@ -109,10 +121,8 @@ module.exports = function(options) {
                 stylobuild.options = {};
             }
 
-            // CSSO as a default minifier
-            if (!stylobuild.options.minifier && stylobuild.options.minifier !== false) {
-                stylobuild.options['minifier'] = stylobuild.sourcemap ? 'csswring' : 'csso';
-            }
+            // Setup the default minifier
+            stylobuild_get_default_minifier(stylobuild);
 
             // Applying postprocessors
             stylobuild_autoprefixer(stylobuild);
