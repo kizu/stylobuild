@@ -110,7 +110,7 @@ module.exports = function(options) {
             }
 
             // CSSO as a default minifier
-            if (!stylobuild.options.minifier) {
+            if (!stylobuild.options.minifier && stylobuild.options.minifier !== false) {
                 stylobuild.options['minifier'] = stylobuild.sourcemap ? 'csswring' : 'csso';
             }
 
