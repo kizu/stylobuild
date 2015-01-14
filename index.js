@@ -45,7 +45,7 @@ var stylobuild_csso = function(stylobuild) {
 var stylobuild_cleancss = function(stylobuild) {
     if (!stylobuild.sourcemap && stylobuild.options.cleancss !== false && stylobuild.options.minifier === 'cleancss') {
         var cleancss_options = stylobuild.options.cleancss || {};
-        stylobuild.css = new cleancss(cleancss_options).minify(stylobuild.css);
+        stylobuild.css = new cleancss(cleancss_options).minify(stylobuild.css).styles;
     }
 }
 
