@@ -1,6 +1,6 @@
 {
   "name": "stylobuild",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "author": "Roman Komarov <kizmarh@ya.ru> (http://kizu.ru/en/)",
   "licence": "MIT",
   "description": "Workflow for building Stylus with CSSO, Autoprefixer and other stuff",

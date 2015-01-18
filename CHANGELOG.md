@@ -2,11 +2,12 @@
 # Stylobuild Changelog
 ---
 
-## v0.7.0 (in development)
+## v0.7.0 (2015-01-18)
 
 - Added a way to disable any minifier.
 - Added a way to detect the default minifier by its options.
 - Added a way to set the default minifier by passing `true` instead of its options.
+- Updated deps.
 
 ## v0.6.0 (2014-11-27)
 
