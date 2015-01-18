@@ -170,13 +170,13 @@ use('node_modules/stylobuild', {
 
 ### Configuring [clean-css][]
 
-You can configure clean-css by passing a hash with the [list of options](https://github.com/jakubpawlowicz/clean-css/tree/v2.2.19#how-to-use-clean-css-programmatically) to the `cleancss`:
+You can configure clean-css by passing a hash with the [list of options](https://github.com/jakubpawlowicz/clean-css/tree/v3.0.4#how-to-use-clean-css-programmatically) to the `cleancss`:
 
 ``` sass
 use('node_modules/stylobuild', {
   minifier: 'cleancss'
   cleancss: {
-    noAdvanced: true
+    advanced: false
   }
 })
 ```
