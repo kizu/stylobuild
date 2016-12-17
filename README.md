@@ -91,13 +91,13 @@ In future there would be an option to create styles for IE automatically, using 
 
 ### Source maps
 
-If you're using sourcemaps in Stylus, the plugins that do not support them (CSSO, clean-css) would be disabled.
+If you're using sourcemaps in Stylus, the plugins that do not support them (like clean-css) would be disabled.
 
 Also, only inline sourcemaps are working right now, the support for external source maps would be implemented later.
 
 ### Choosing the minifier
 
-By default Stylobuild uses CSSO as a minifier, but if you would enable source maps, then CSSWring would become the default one.
+By default Stylobuild uses CSSO as a minifier.
 
 However, you can choose the minifier manually by setting the `minifier` option to one of the available ones: `csso`, `csswring`, `cleancss`:
 
