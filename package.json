@@ -1,6 +1,6 @@
 {
   "name": "stylobuild",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "author": "Roman Komarov <kizmarh@ya.ru> (http://kizu.ru/en/)",
   "licence": "MIT",
   "description": "Workflow for building Stylus with CSSO, Autoprefixer and other stuff",
@@ -18,14 +18,15 @@
     "url": "git://github.com/kizu/stylobuild.git"
   },
   "dependencies": {
-    "autoprefixer": "~5.0.0",
-    "clean-css": "~3.0.5",
-    "csswring": "~1.3.1",
-    "csso": "~1.3.11",
-    "pixrem": "~1.0.0"
+    "postcss": "~5.2.6",
+    "autoprefixer": "~6.5.4",
+    "clean-css": "~3.4.23",
+    "csswring": "~5.1.0",
+    "csso": "~2.3.0",
+    "pixrem": "~3.0.2"
   },
   "devDependencies": {
-    "stylus": "0.49.3",
+    "stylus": "0.54.5",
     "glob": "3.2.x",
     "mocha": "*",
     "should": "2.0.x"

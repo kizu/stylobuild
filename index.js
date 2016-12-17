@@ -1,46 +1,51 @@
+var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
 var csso = require('csso');
 var cleancss = require('clean-css');
 var csswring = require('csswring');
 var pixrem = require('pixrem');
 
+var stylobuild_postcss = function(stylobuild) {
+    var postcss_options = {};
+    if (stylobuild.sourcemap) {
+        postcss_options['map'] = true;
+        postcss_options['from'] = stylobuild.sourcemap.from;
+        postcss_options['to'] = stylobuild.sourcemap.to;
+    }
+    if (stylobuild.postcss_plugins.length) {
+        stylobuild.css = postcss(stylobuild.postcss_plugins).process(stylobuild.css, postcss_options).css;
+    }
+};
+
 var stylobuild_autoprefixer = function(stylobuild) {
     if (stylobuild.options.ie !== true && stylobuild.options.autoprefixer !== false) {
         var autoprefixer_browsers = (stylobuild.options.autoprefixer && stylobuild.options.autoprefixer.browsers) || [];
-        var autoprefixer_preoptions = {};
-        var autoprefixer_options = stylobuild.options.autoprefixer !== true && stylobuild.options.autoprefixer || {};
+        var autoprefixer_options = {};
         if (autoprefixer_browsers.length) {
             autoprefixer_browsers = autoprefixer_browsers.split(/,\s*/);
         }
 
-        // Apply proper from/to urls
-        if (stylobuild.sourcemap) {
-            if (!autoprefixer_options.from) {
-                autoprefixer_options['from'] = stylobuild.sourcemap.from;
-            }
-            if (!autoprefixer_options.to) {
-                autoprefixer_options['to'] = stylobuild.sourcemap.to;
-            }
-        }
-
         if (stylobuild.options.autoprefixer && stylobuild.options.autoprefixer.cascade) {
-            autoprefixer_preoptions['cascade'] = true;
+            autoprefixer_options['cascade'] = true;
         } else {
-            autoprefixer_preoptions['cascade'] = false;
+            autoprefixer_options['cascade'] = false;
         }
         if (autoprefixer_browsers.length) {
-            autoprefixer_preoptions['browsers'] = autoprefixer_browsers;
+            autoprefixer_options['browsers'] = autoprefixer_browsers;
         }
-        stylobuild.css = autoprefixer(autoprefixer_preoptions).process(stylobuild.css, autoprefixer_options).css;
+
+        stylobuild.postcss_plugins.push(autoprefixer(autoprefixer_options));
     }
 }
 
 var stylobuild_get_default_minifier = function(stylobuild) {
     if (!stylobuild.options.minifier && stylobuild.options.minifier !== false) {
-        if (stylobuild.sourcemap || stylobuild.options.csswring) {
-            stylobuild.options['minifier'] = 'csswring';
+        if (stylobuild.sourcemap || stylobuild.options.csso) {
+            stylobuild.options['minifier'] = 'csso';
         } else if (stylobuild.options.cleancss) {
             stylobuild.options['minifier'] = 'cleancss';
+        } else if (stylobuild.options.csswring) {
+            stylobuild.options['minifier'] = 'csswring';
         } else {
             stylobuild.options['minifier'] = 'csso';
         }
@@ -48,9 +53,12 @@ var stylobuild_get_default_minifier = function(stylobuild) {
 }
 
 var stylobuild_csso = function(stylobuild) {
-    if (!stylobuild.sourcemap && stylobuild.options.csso !== false && stylobuild.options.minifier === 'csso') {
-        var csso_restructure_off = (stylobuild.options.csso && stylobuild.options.csso['restructure-off']) || false
-        stylobuild.css = csso.justDoIt(stylobuild.css, csso_restructure_off);
+    if (stylobuild.options.csso !== false && stylobuild.options.minifier === 'csso') {
+        var csso_options = stylobuild.options.csso !== true && stylobuild.options.csso || {};
+        if (csso_options['restructure-off']) {
+            csso_options.restructure = !csso_options['restructure-off'];
+        }
+        stylobuild.css = csso.minify(stylobuild.css, csso_options).css;
     }
 }
 
@@ -65,23 +73,19 @@ var stylobuild_csswring = function(stylobuild) {
     if (stylobuild.options.csswring !== false && stylobuild.options.minifier === 'csswring') {
         var csswring_options = stylobuild.options.csswring !== true && stylobuild.options.csswring || {};
         csswring_postcss_options = csswring_options.postcss || {};
-        if (stylobuild.sourcemap) {
-            csswring_postcss_options['map'] = true;
-            if (!csswring_options.from) {
-                csswring_postcss_options['from'] = stylobuild.sourcemap.from;
-            }
-            if (!csswring_options.to) {
-                csswring_postcss_options['to'] = stylobuild.sourcemap.to;
-            }
-        }
-        stylobuild.css = csswring.wring(stylobuild.css, csswring_postcss_options).css;
+        stylobuild.postcss_plugins.push(csswring(csswring_options));
     }
 }
 
 var stylobuild_pixrem = function(stylobuild) {
     if (stylobuild.options.pixrem !== false) {
-        var pixrem_rootvalue = (stylobuild.options.pixrem && stylobuild.options.pixrem.rootvalue) || '10px';
         var pixrem_options = stylobuild.options.pixrem !== true && stylobuild.options.pixrem || {};
+        var pixrem_rootvalue = (stylobuild.options.pixrem && stylobuild.options.pixrem.rootvalue) || '10px';
+        pixrem_options.rootValue = pixrem_options.rootValue || pixrem_rootvalue;
+        if (pixrem_options.rootvalue) {
+            delete pixrem_options.rootvalue;
+        }
+
         if (stylobuild.options.ie === true && pixrem_options.replace === undefined) {
             pixrem_options.replace = true;
         }
@@ -94,7 +98,7 @@ var stylobuild_pixrem = function(stylobuild) {
                 pixrem_postcss_options['to'] = stylobuild.sourcemap.to;
             }
         }
-        stylobuild.css = pixrem.process(stylobuild.css, pixrem_rootvalue, pixrem_options, pixrem_postcss_options);
+        stylobuild.postcss_plugins.push(pixrem(pixrem_options));
     }
 }
 
@@ -102,7 +106,8 @@ module.exports = function(options) {
     return function(style) {
         this.on('end', function(err, css) {
             var stylobuild = {
-                css: css
+                css: css,
+                postcss_plugins: []
             }
             if (style.sourcemap) {
                 stylobuild['sourcemap'] = {
@@ -134,6 +139,9 @@ module.exports = function(options) {
 
             // Applying postprocessors that should be applied after minifiers
             stylobuild_pixrem(stylobuild);
+
+            // Applying all the postprocessors
+            stylobuild_postcss(stylobuild);
 
             return stylobuild.css;
         });

@@ -2,6 +2,12 @@
 # Stylobuild Changelog
 ---
 
+## v1.0.0 (2016-12-18)
+
+- Using CSSO as default minifier as it now supports source maps (and is overall the awesomest there).
+- Updated all the deps to the latest.
+- Using latest PostCSS with proper options and stuff.
+
 ## v0.7.0 (2015-01-18)
 
 - Added a way to disable any minifier.
